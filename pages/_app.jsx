@@ -1,14 +1,37 @@
+import React, { useEffect } from "react";
+import Head from "next/head";
 import { ApolloProvider } from "@apollo/client";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseLine from "@material-ui/core/CssBaseline";
+
 import { useApollo } from "../src/apollo-client";
-import "../styles/globals.css";
+import theme from "../src/theme";
 
 const MyApp = ({ Component, pageProps }) => {
   const apolloClient = useApollo(pageProps);
 
+  useEffect(() => {
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement?.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
-    <ApolloProvider client={apolloClient}>
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseLine />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ApolloProvider>
+    </>
   );
 };
 

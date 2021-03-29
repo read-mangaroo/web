@@ -1,7 +1,8 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import Grid from "@material-ui/core/Grid";
 import { LIST_MANGAS } from "../graph/queries";
-import styles from "../../styles/Home.module.css";
+import FeaturedManga from "./featured-manga";
 
 const MangaList = () => {
   const { loading, error, data } = useQuery(LIST_MANGAS);
@@ -11,19 +12,11 @@ const MangaList = () => {
   if (loading) return <div>Loading</div>;
 
   return (
-    <div className={styles.grid}>
-      {data?.mangas.map((manga) => (
-        <div key={manga.id} className={styles.card}>
-          <h3>{manga.name}</h3>
-          <p>Author: {manga.author}</p>
-          <p>Description: {manga.description}</p>
-          <p>Artist: {manga.artist}</p>
-          <p>Status: {manga.status}</p>
-          <p>Demographic: {manga.demographic}</p>
-          <p>Is Hentai: {manga.isHentai}</p>
-        </div>
+    <Grid container spacing={4}>
+      {data.mangas.map((manga) => (
+        <FeaturedManga key={manga.id} manga={manga} />
       ))}
-    </div>
+    </Grid>
   );
 };
 
