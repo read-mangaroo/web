@@ -1,17 +1,20 @@
-/* eslint-disable import/prefer-default-export */
 import { gql } from "@apollo/client";
+import { CORE_MANGA_FIELDS } from "./fragments";
 
 export const LIST_MANGAS = gql`
+  ${CORE_MANGA_FIELDS}
   query ListMangas {
     mangas {
-      id
-      name
-      author
-      artist
-      status
-      demographic
-      isHentai
-      description
+      ...CoreMangaFields
+    }
+  }
+`;
+
+export const GET_MANGA = gql`
+  ${CORE_MANGA_FIELDS}
+  query GetManga($id: ID!) {
+    manga(id: $id) {
+      ...CoreMangaFields
     }
   }
 `;
