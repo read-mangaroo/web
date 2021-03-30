@@ -43,7 +43,6 @@ const MangaForm = ({ operation }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("eah", values);
       operation({ variables: { input: values } });
     },
   });

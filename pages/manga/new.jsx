@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import App from "../../src/components/layout";
 import MangaForm from "../../src/components/manga-form";
+import { addApolloState, initializeApollo } from "../../src/apollo-client";
 import { CREATE_MANGA } from "../../src/graph/mutation";
 import { LIST_MANGAS } from "../../src/graph/queries";
 
@@ -48,6 +49,15 @@ const MangaCreatePage = () => {
       </Container>
     </App>
   );
+};
+
+export const getServerSideProps = async () => {
+  const apolloClient = initializeApollo();
+  await apolloClient.query({ query: LIST_MANGAS });
+
+  return addApolloState(apolloClient, {
+    props: {},
+  });
 };
 
 export default MangaCreatePage;
