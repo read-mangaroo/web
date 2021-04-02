@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: web
+  labels:
+    app: web
+    environment: production
+spec:
+  selector:
+    matchLabels:
+      app: web
+      environment: production
+  template:
+    metadata:
+      labels:
+        app: web
+        environment: production
+    spec:
+      containers:
+        - name: mangaroo-web
+          image: <IMAGE>
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: config-map
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: web
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: web
+    environment: production

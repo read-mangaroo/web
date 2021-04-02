@@ -6,16 +6,19 @@ import { useMemo } from "react";
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import merge from "deepmerge";
 import isEqual from "lodash/isEqual";
+import getConfig from "next/config";
 
 let apolloClient;
 
 export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
+const { publicRuntimeConfig } = getConfig();
+
 const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      uri: "http://localhost:4000/api",
+      uri: `${publicRuntimeConfig?.serverUri ?? "http://localhost:4000"}/api`,
     }),
     cache: new InMemoryCache(),
   });

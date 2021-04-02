@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import App from "next/app";
 import Head from "next/head";
 import { ApolloProvider } from "@apollo/client";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -33,6 +34,11 @@ const MyApp = ({ Component, pageProps }) => {
       </ApolloProvider>
     </>
   );
+};
+
+MyApp.getInitialProps = async (context) => {
+  const initialProps = await App.getInitialProps(context);
+  return {...initialProps};
 };
 
 export default MyApp;

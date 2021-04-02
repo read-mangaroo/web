@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-staging
+  namespace: web
+  labels:
+    app: web
+    environment: staging
+spec:
+  selector:
+    matchLabels:
+      app: web
+      environment: staging
+  template:
+    metadata:
+      labels:
+        app: web
+        environment: staging
+    spec:
+      containers:
+        - name: mangaroo-web
+          image: <IMAGE>
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: config-map-staging
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-staging
+  namespace: web
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: web
+    environment: staging
