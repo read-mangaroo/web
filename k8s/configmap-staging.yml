@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-staging
+  namespace: web
+  labels:
+    environment: staging
+    app: web
+data:
+  SERVER_URI: https://staging-api.mangaroo.moe
