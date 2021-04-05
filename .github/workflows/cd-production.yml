@@ -1,5 +1,5 @@
 name: Continuous Deployment - Production
-on: push
+on:
   push:
     tags:
       - v*
