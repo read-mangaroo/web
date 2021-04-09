@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -40,6 +41,7 @@ const MangaForm = ({ operation }) => {
       demographic: "",
       isHentai: false,
       description: "",
+      coverArt: {},
     },
     validationSchema,
     onSubmit: (values) => {
@@ -142,6 +144,23 @@ const MangaForm = ({ operation }) => {
         multiline
         rows={4}
       />
+      <FormControl className={classes.formField} fullWidth>
+        <input
+          accept="image/jpeg,image/png"
+          style={{ display: "none" }}
+          id="coverArt"
+          type="file"
+          onChange={(event) => {
+            formik.setFieldValue("coverArt", event.currentTarget.files[0]);
+          }}
+        />
+        <label htmlFor="coverArt">
+          <Button variant="contained" component="span">
+            Select Cover Art
+          </Button>
+          <span style={{ marginLeft: 20 }}>{formik.values.coverArt.name}</span>
+        </label>
+      </FormControl>
       <Button
         color="primary"
         variant="contained"

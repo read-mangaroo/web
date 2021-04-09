@@ -46,7 +46,7 @@ const MangaShowPage = ({ manga }) => {
             <Container maxWidth="md">
               <img
                 className={classes.coverImage}
-                src="https://source.unsplash.com/random"
+                src={manga.coverArtUrl}
                 alt={manga.name}
               />
             </Container>

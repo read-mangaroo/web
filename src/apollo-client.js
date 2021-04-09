@@ -3,10 +3,11 @@
 /* eslint-disable no-underscore-dangle */
 
 import { useMemo } from "react";
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 import merge from "deepmerge";
 import isEqual from "lodash/isEqual";
 import getConfig from "next/config";
+import { createLink } from "apollo-absinthe-upload-link";
 
 let apolloClient;
 
@@ -17,7 +18,7 @@ const { publicRuntimeConfig } = getConfig();
 const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
-    link: new HttpLink({
+    link: createLink({
       uri: `${publicRuntimeConfig?.serverUri ?? "http://localhost:4000"}/api`,
     }),
     cache: new InMemoryCache(),
