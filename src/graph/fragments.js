@@ -11,5 +11,6 @@ export const CORE_MANGA_FIELDS = gql`
     demographic
     isHentai
     description
+    coverArtUrl
   }
 `;

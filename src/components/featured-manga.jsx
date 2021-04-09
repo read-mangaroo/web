@@ -43,7 +43,7 @@ const FeaturedManga = ({ manga }) => {
               <CardMedia
                 className={classes.cardMedia}
                 title={manga.name}
-                image="https://source.unsplash.com/random"
+                image={manga.coverArtUrl}
               />
             </Hidden>
           </Card>

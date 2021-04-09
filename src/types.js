@@ -10,4 +10,5 @@ export const CORE_MANGA_FIELDS = PropTypes.shape({
   demographic: PropTypes.string,
   isHentai: PropTypes.bool,
   description: PropTypes.string,
+  coverArtUrl: PropTypes.string,
 });
