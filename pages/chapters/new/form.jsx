@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { makeStyles } from "@material-ui/core/styles";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 
 const validationSchema = yup.object({
@@ -25,6 +26,7 @@ const ChapterForm = ({ operation, mangas, mangaId }) => {
     initialValues: {
       name: "",
       mangaId: parseInt(mangaId, 10),
+      chapterArchive: {},
     },
     validationSchema,
     onSubmit: (values) => {
@@ -72,6 +74,28 @@ const ChapterForm = ({ operation, mangas, mangaId }) => {
           />
         )}
       />
+      <FormControl className={classes.formField} fullWidth>
+        <input
+          accept="application/zip"
+          style={{ display: "none" }}
+          id="chapterArchive"
+          type="file"
+          onChange={(event) => {
+            formik.setFieldValue(
+              "chapterArchive",
+              event.currentTarget.files[0]
+            );
+          }}
+        />
+        <label htmlFor="chapterArchive">
+          <Button variant="contained" component="span">
+            Select Archive File
+          </Button>
+          <span style={{ marginLeft: 20 }}>
+            {formik.values.chapterArchive.name}
+          </span>
+        </label>
+      </FormControl>
       <Button
         color="primary"
         variant="contained"
